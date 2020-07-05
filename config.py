@@ -4,9 +4,9 @@ SECRET_KEY = os.urandom(32)
 basedir = os.path.abspath(os.path.dirname(__file__))
 
 auth0_config = {
-    "AUTH0_DOMAIN" : "_.eu.auth0.com",
+    "AUTH0_DOMAIN" : "dev-m-guru.auth0.com",
     "ALGORITHMS" : ["RS256"],
-    "API_AUDIENCE" : ""
+    "API_AUDIENCE" : "FSNDCapstone"
 }
 
 pagination = {
@@ -20,7 +20,7 @@ bearer_tokens = {
 }
 
 database_setup = {
-   "database_name_production": "agency",
+   "database_name_production": "FSND_Capstone",
    "user_name": "postgres", # default
    "password": "test2020",
    "port" : "localhost:5432" # default

@@ -1,8 +1,8 @@
 import os
 from flask import Flask, request, abort, jsonify
 from flask_sqlalchemy import SQLAlchemy
-from flask_cors import CORS
 from auth import AuthError, requires_auth
+from flask_cors import CORS
 from config import pagination
 from models import db_drop_and_create_all, setup_db, Actor, Movie, Performance
 

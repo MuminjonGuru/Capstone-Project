@@ -1,9 +1,9 @@
 import os
-from sqlalchemy import Column, Integer, String, Float, Dates, create_engine 
+from sqlalchemy import Column, Integer, String, Float, Date, create_engine 
 import json
 from flask_sqlalchemy import SQLAlchemy
 from config import database_setup
-from datetime import Date
+# from datetime import Date
 
 
 #------------------------------------------------------------------#
@@ -11,7 +11,7 @@ from datetime import Date
 #------------------------------------------------------------------#
 
 
-datebase_path = os.environ.get('DATABASE_URL', "postgres://{}:{}@{}/{}".format(database_setup["user_name"], database_setup["password"], database_setup["port"], database_setup["database_name_test"]))
+datebase_path = os.environ.get('DATABASE_URL', "postgres://{}:{}@{}/{}".format(database_setup["user_name"], database_setup["password"], database_setup["port"], database_setup["database_name_production"]))
 
 db = SQLAlchemy()
 
@@ -39,7 +39,7 @@ def db_init_records():
 
     new_movie = (Movie(
         title = 'Six Pack Coder',
-        release_date = date.today()
+        release_date = Date.today()
     ))
 
     new_performance = Performance.insert().values(
