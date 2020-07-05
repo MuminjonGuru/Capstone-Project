@@ -1,8 +1,8 @@
 import os
 from flask import Flask, request, abort, jsonify
+from flask_cors import CORS
 from flask_sqlalchemy import SQLAlchemy
 from auth import AuthError, requires_auth
-from flask_cors import CORS
 from config import pagination
 from models import db_drop_and_create_all, setup_db, Actor, Movie, Performance
 
@@ -294,4 +294,5 @@ def create_app(test_config=None):
 APP = create_app()  
 
 if __name__ == '__main__':
-    APP.run(host='0.0.0.0', port=8080, debug=True)
+    port = int(os.environ.get("PORT", 5000))
+    APP.run(host='0.0.0.0', port=port, debug=True)

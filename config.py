@@ -22,6 +22,6 @@ bearer_tokens = {
 database_setup = {
    "database_name_production": "FSND_Capstone",
    "user_name": "postgres", # default
-   "password": "test2020",
+   "password": "su",
    "port" : "localhost:5432" # default
 }
