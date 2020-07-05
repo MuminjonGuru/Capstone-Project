@@ -11,7 +11,7 @@ from config import database_setup
 #------------------------------------------------------------------#
 
 
-datebase_path = os.environ.get('DATABASE_URL', "postgres://{}:{}@{}/{}".format(database_setup["user_name"], database_setup["password"], database_setup["port"], database_setup["database_name_production"]))
+database_path = os.environ.get('DATABASE_URL', "postgres://{}:{}@{}/{}".format(database_setup["user_name"], database_setup["password"], database_setup["port"], database_setup["database_name_production"]))
 
 db = SQLAlchemy()
 

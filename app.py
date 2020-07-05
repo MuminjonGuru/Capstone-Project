@@ -13,7 +13,7 @@ def create_app(test_config=None):
   
   app = Flask(__name__)
   setup_db(app)
-  # db_drop_and_create_all() # uncomment this if you want to start a new database on app refresh
+  db_drop_and_create_all()  # Uncomment - if you want to start a new database on app refresh
 
   #============================================================#
   # API configuration
@@ -161,7 +161,7 @@ def create_app(test_config=None):
   # Endpoint /movies GET/POST/DELETE/UPDATE
   #============================================================#  
   @app.route('/movies', methods=['GET'])
-  @required_auth('read:movies')
+  @requires_auth('read:movies')
   def get_movies(payload):
     selection = Movie.query.all()
     movies_paginated = paginate_results(request, selection)
