@@ -1,4 +1,4 @@
-# FSND: Capstone Project
+# FSND: Capstone Project - Casting Agency
 
 ## Content
 
