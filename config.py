@@ -10,7 +10,7 @@ auth0_config = {
 }
 
 pagination = {
-    "example" : 10 # Limits returned rows of API
+    "example" : 10  # Limits returned rows of API
 }
 
 bearer_tokens = {

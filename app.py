@@ -13,7 +13,7 @@ def create_app(test_config=None):
   
   app = Flask(__name__)
   setup_db(app)
-  db_drop_and_create_all()  # Uncomment - if you want to start a new database on app refresh
+  # db_drop_and_create_all()  # Uncomment - if you want to start a new database on app refresh
 
   #============================================================#
   # API configuration
@@ -37,16 +37,15 @@ def create_app(test_config=None):
           return default_text
 
   def paginate_results(request, selection):
-    # Get page from request. If not given, default to 1
+    # get from page or default page which is 1
     page = request.args.get('page', 1, type=int)
       
-    # Calculate start and end slicing
-    start =  (page - 1) * ROWS_PER_PAGE
-    end = start + ROWS_PER_PAGE
+    # starting point and ending points
+    start = (page - 1) * ROWS_PER_PAGE
+    end   = start + ROWS_PER_PAGE
 
-      # Format selection into list of dicts and return sliced
-    objects_formatted = [object_name.format() for object_name in selection]
-    return objects_formatted[start:end]
+    formatted_data = [object_name.format() for object_name in selection]
+    return formatted_data[start:end]
 
   #============================================================#
   #                       API Endpoints                        #
@@ -59,14 +58,14 @@ def create_app(test_config=None):
   @requires_auth('read:actors')
   def get_actors(payload):
     selection = Actor.query.all()
-    actors_paginated = paginate_results(request, selection)
+    paginated_actors = paginate_results(request, selection)
 
-    if len(actors_paginated) == 0:
+    if len(paginated_actors) == 0:
       abort(404, {'message': 'No Actors found in Database!'})
 
     return jsonify({
       'success': True,
-      'actors': actors_paginated
+      'actors': paginated_actors
     })  
 
 
@@ -82,11 +81,11 @@ def create_app(test_config=None):
     age    = body.get('age', None)
     gender = body.get('gender', 'Unknown')
 
-    if not name:
-      abort(422, {'message': 'No Name'})
-
     if not age:
       abort(422, {'message': 'No Age'})
+
+    if not name:
+      abort(422, {'message': 'No Name'})
 
     # add new records and insert to DB
     new_actor = (Actor(
@@ -106,34 +105,34 @@ def create_app(test_config=None):
   def edit_actors(payload, actor_id):
     body = request.get_json()
 
-    if not actor_id:
-      abort(400, {'message': 'Actor id not given.'})
-
     if not body:
       abort(400, {'message': 'Invalid JSON'})  
 
+    if not actor_id:
+      abort(400, {'message': 'Actor id not given.'})
+
     # find actor
-    actor_to_update = Actor.query.filter(Actor.id == actor_id).one_or_none()
+    updated_actor = Actor.query.filter(Actor.id == actor_id).one_or_none()
 
     # abort if no actor with the given id
-    if not actor_to_update:
+    if not updated_actor:
       abort(404, {'message': 'Actor with id {} not found in records'.format(actor_id)})
 
     # extract data
-    name   = body.get('name', actor_to_update.name)
-    age    = body.get('age', actor_to_update.age)
-    gender = body.get('gender', actor_to_update.gender)    
+    name   = body.get('name', updated_actor.name)
+    age    = body.get('age', updated_actor.age)
+    gender = body.get('gender', updated_actor.gender)    
 
     # update with a new data
-    actor_to_update.name = name
-    actor_to_update.age = age
-    actor_to_update.gender = gender
-    actor_to_update.update
+    updated_actor.name = name
+    updated_actor.age = age
+    updated_actor.gender = gender
+    updated_actor.update
 
     return jsonify({
       'success': True,
-      'updated': actor_to_update.id,
-      'actor'  : [actor_to_update.format()]
+      'updated': updated_actor.id,
+      'actor'  : [updated_actor.format()]
     })
 
   @app.route('/actors/<actor_id>', methods=['DELETE'])
@@ -143,13 +142,13 @@ def create_app(test_config=None):
       abort(400, {'message': 'Actor ID not given'})
 
     # get actor by id
-    actor_to_delete = Actor.query.filter(Actor.id == actor_id).one_or_none()
+    deleted_actor = Actor.query.filter(Actor.id == actor_id).one_or_none()
 
-    if not actor_to_delete:
+    if not deleted_actor:
       abort(404, {'message': 'Actor with id {} not found in database.'.format(actor_id)})
 
     # delete
-    actor_to_delete.delete()
+    deleted_actor.delete()
 
     return jsonify({
       'success': True,
@@ -197,7 +196,7 @@ def create_app(test_config=None):
       title = title,
       release_date = release_date
     ))  
-    new_movie.insert
+    new_movie.insert  # add to database
 
     return jsonify({
       'success': True,
@@ -216,23 +215,23 @@ def create_app(test_config=None):
       abort(400, {'message': 'Invalid JSON'})  
 
     # fetch movie by ID
-    movie_to_update = Movie.query.filter(Movie.id == movie_id).one_or_none()
+    edited_movie = Movie.query.filter(Movie.id == movie_id).one_or_none()
 
-    if not movie_to_update:
+    if not edited_movie:
       abort(404, {'message': 'Movie Not Found'})    
 
     # get records
-    title = body.get('title', movie_to_update.title)
-    release_date = body.get('release_date', movie_to_update.release_date)
+    title = body.get('title', edited_movie.title)
+    release_date = body.get('release_date', edited_movie.release_date)
     # update
-    movie_to_update.title = title
-    movie_to_update.release_date = release_date
-    movie_to_update.update
+    edited_movie.title = title
+    edited_movie.release_date = release_date
+    edited_movie.update
 
     return jsonify({
       'success': True,
-      'edited': movie_to_update.id,
-      'movie': [movie_to_update.format()]
+      'edited': edited_movie.id,
+      'movie': [edited_movie.format()]
     })
 
   @app.route('/movies/<movie_id>', methods=['DELETE'])
@@ -241,12 +240,12 @@ def create_app(test_config=None):
     if not movie_id:
       abort(400, {'message': 'Movie ID not given'})
 
-    movie_to_delete = Movie.query.filter(Movie.id == movie_id).one_or_none()
+    deleted_movie = Movie.query.filter(Movie.id == movie_id).one_or_none()
 
-    if not movie_to_delete:
+    if not deleted_movie:
       abort(404, {'message': 'Movie not found'})
 
-    movie_to_delete.delete
+    deleted_movie.delete
 
     return jsonify({
       'success': True,
@@ -278,7 +277,7 @@ def create_app(test_config=None):
     return jsonify({
       "success": False, 
       "error": 422,
-      "message": get_error_message(error,"Unprocessable")
+      "message": get_error_message(error, "Unprocessable")
     }), 422  
 
   @app.errorhandler(AuthError)
