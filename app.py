@@ -89,9 +89,9 @@ def create_app(test_config=None):
 
     # add new records and insert to DB
     new_actor = (Actor(
-      name = name,
+      name   = name,
       gender = gender,
-      age = age
+      age    = age
     ))    
     new_actor.insert
 
@@ -124,8 +124,8 @@ def create_app(test_config=None):
     gender = body.get('gender', updated_actor.gender)    
 
     # update with a new data
-    updated_actor.name = name
-    updated_actor.age = age
+    updated_actor.name   = name
+    updated_actor.age    = age
     updated_actor.gender = gender
     updated_actor.update
 
