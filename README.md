@@ -26,7 +26,7 @@ Follow instructions to install the latest version of python for your platform in
 
 PIP Dependencies
 Once you have your virtual environment setup and running, install dependencies by naviging to the /backend directory and running:
-    pip install -r requirements.txt
+    (`pip install -r requirements.txt`)
 
 ---------
 
@@ -36,13 +36,13 @@ From within the ./src directory first ensure you are working using your create
 
 Each time you open a new terminal session, run:
 
-export FLASK_APP=app.py;
+(`export FLASK_APP=app.py`)
 or
-$env:FLASK_APP="app.py"
+(`$env:FLASK_APP="app.py"`)
 
 To run the server, execute:
 
-flask run --reload
+(`flask run --reload`)
 
 The --reload flag restarts the server when will happen a change on the source code.
 
@@ -88,4 +88,4 @@ Executive Producer
 
 To start the tests cd into src/ then type this command in terminal
 
-python test_app.py
+(`python test_app.py`)
