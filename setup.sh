@@ -4,3 +4,7 @@ export API_AUDIENCE="FSNDCapstone"
 export DATABASE_URL="postgresql://postgres:su@localhost:5432/FSND_Capstone"
 export FLASK_APP=app.py
 export FLASK_ENV=development
+
+export CASTING_ASSISTANT="Bearer __xyz__"
+export EXECUTIVE_PRODUCER="Bearer __xyz__"
+export CASTING_DIRECTOR="Bearer __xyz__"
