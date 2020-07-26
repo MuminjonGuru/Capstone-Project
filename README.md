@@ -69,20 +69,20 @@ In this part you can find all the necessary info about API.
 ## Roles
 
 Casting Assistant:
-    **GET**:movies
-    **GET**:actors    
+    1.  **GET**:movies
+    2.  **GET**:actors    
 
 Casting Director
-    **All permissions a Casting Assistant has**
-    **PATCH**:movie
-    **DELETE**:actor
-    **PATCH**:actor
-    **POST**:actor
+    1.  **All permissions a Casting Assistant has**
+    2.  **PATCH**:movie
+    3.  **DELETE**:actor
+    4.  **PATCH**:actor
+    5.  **POST**:actor
 
 Executive Producer
-    **All permissions a Casting Director has**
-    **DELETE**:movie
-    **POST**:movie
+    1.  **All permissions a Casting Director has**
+    2.  **DELETE**:movie
+    2.  **POST**:movie
 
 ## Unit Testing
 
