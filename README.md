@@ -26,7 +26,7 @@ Follow instructions to install the latest version of python for your platform in
 
 PIP Dependencies
 Once you have your virtual environment setup and running, install dependencies by naviging to the /backend directory and running:
-    pip install -r requirements.txt
+    (`pip install -r requirements.txt`)
 
 ---------
 
@@ -36,13 +36,13 @@ From within the ./src directory first ensure you are working using your create
 
 Each time you open a new terminal session, run:
 
-export FLASK_APP=app.py;
+(`export FLASK_APP=app.py`)
 or
-$env:FLASK_APP="app.py"
+(`$env:FLASK_APP="app.py"`)
 
 To run the server, execute:
 
-flask run --reload
+(`flask run --reload`)
 
 The --reload flag restarts the server when will happen a change on the source code.
 
@@ -69,23 +69,23 @@ In this part you can find all the necessary info about API.
 ## Roles
 
 Casting Assistant:
-    **GET**:movies
-    **GET**:actors    
+    1.  **GET**:movies
+    2.  **GET**:actors    
 
 Casting Director
-    **All permissions a Casting Assistant has**
-    **PATCH**:movie
-    **DELETE**:actor
-    **PATCH**:actor
-    **POST**:actor
+    1.  **All permissions a Casting Assistant has**
+    2.  **PATCH**:movie
+    3.  **DELETE**:actor
+    4.  **PATCH**:actor
+    5.  **POST**:actor
 
 Executive Producer
-    **All permissions a Casting Director has**
-    **DELETE**:movie
-    **POST**:movie
+    1.  **All permissions a Casting Director has**
+    2.  **DELETE**:movie
+    2.  **POST**:movie
 
 ## Unit Testing
 
 To start the tests cd into src/ then type this command in terminal
 
-python test_app.py
+(`python test_app.py`)
