@@ -57,8 +57,8 @@ def create_app(test_config=None):
   @app.route('/', methods=['GET'])
   def welcome():
       return jsonify({
-          'welcome': 'Working!',
-          'Live_WebApp': 'https://XXXXXXX.herokuapp.com',
+          'Welcome': 'Working!',
+          'LiveWebApp': 'https://XXXXXXX.herokuapp.com',
       })  
 
   #============================================================#
