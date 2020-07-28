@@ -1,16 +1,17 @@
 
-# FSND: Capstone Project - Casting Agency
+# FSND: Capstone Project - Casting Agency 🤖
 
-This is the Casting Agency Final Project for my Udacity Full Stack Web Developer Nanodegree.
+> This is the Casting Agency Final Project for my Udacity Full Stack Web
+> Developer Nanodegree ✨
 
-## Content
+## Content 🎞
 
 1.  [Motivation]()
 2.  [Project Setup]()
 3.  [API Documentation]()
 4.  [Authentification/Authorization]()
 
-## Motivation
+## Motivation 💪
 
 This is the final project in this course and it includes many stuff I have learned throughout the course.
 
@@ -21,7 +22,7 @@ This is the final project in this course and it includes many stuff I have learn
 4.  Authorization &  Authentification **Auth0**  (`auth.py`)
 5.  Deployment on  **`Heroku`**
 
-## Project Setup
+## Project Setup 🔌
 
 Make sure you  `cd`  into the correct folder (with all app files) before following the setup steps. Also, you need the latest version of  [Python 3](https://www.python.org/downloads/)  and  [postgres](https://www.postgresql.org/download/)  installed on your machine.
 
@@ -32,9 +33,8 @@ PIP Dependencies
 Once you have your virtual environment setup and running, install dependencies by naviging to the /backend directory and running:
     (`pip install -r requirements.txt`)
 
----------
 
-Running the server
+## Running the server ⚗
 
 From within the ./src directory first ensure you are working using your created virtual environment.
 
@@ -50,7 +50,7 @@ To run the server, execute:
 
 The --reload flag restarts the server when will happen a change on the source code.
 
-## API Documentation
+## API Documentation ⚙
 
 In this part you can find all the necessary info about API.
 
@@ -86,7 +86,7 @@ In this part you can find all the necessary info about API.
 
   - Updates the movie that matches to the movie ID that is given into the URL.
 
-## Roles
+## Roles 🧬
 
 Casting Assistant:
  - **GET**:movies
@@ -104,7 +104,7 @@ Executive Producer:
  - **DELETE**:movie
  - **POST**:movie
 
-## Unit Testing
+## Unit Testing 🎯
 
 To start the tests cd into src/ then type this command in terminal
 
