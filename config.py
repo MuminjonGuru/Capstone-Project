@@ -8,7 +8,7 @@ auth0_config = {
     "ALGORITHMS" : ["RS256"],
     "API_AUDIENCE" : "FSNDCapstone",
     "AUTH0_CLIENT_ID": "0wMjUCi4MrsgFoEt1seV1XcTLHc8Yl6h",
-    "AUTH0_CALLBACK_URL": "http://0.0.0.0:5000"
+    "AUTH0_CALLBACK_URL": "http://localhost:5000"
 }
 
 pagination = {

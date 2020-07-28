@@ -2,7 +2,7 @@ import os
 from flask import Flask, request, abort, jsonify
 from flask_cors import CORS
 from flask_sqlalchemy import SQLAlchemy
-from auth import AuthError, requires_auth, AUTH0_DOMAIN, API_AUDIENCE, AUTH0_CALLBACK_URL
+from auth import AuthError, requires_auth, AUTH0_DOMAIN, API_AUDIENCE, AUTH0_CALLBACK_URL, AUTH0_CLIENT_ID
 from config import pagination
 from models import db_drop_and_create_all, setup_db, Actor, Movie, Performance
 
@@ -35,6 +35,7 @@ def create_app(test_config=None):
           return error.description['message']
       except:
           return default_text
+          
 
   def paginate_results(request, selection):
     # get from page or default page which is 1
@@ -47,6 +48,7 @@ def create_app(test_config=None):
     formatted_data = [object_name.format() for object_name in selection]
     return formatted_data[start:end]
 
+
   @app.route("/auth")
   def generate_auth_url():
     url = f'https://{AUTH0_DOMAIN}/authorize' \
@@ -56,8 +58,9 @@ def create_app(test_config=None):
         f'{AUTH0_CALLBACK_URL}'
 
     return jsonify({
-        'url': url
-    })                
+        'auth_url': url
+    })        
+
 
   #============================================================#
   #                       API Endpoints                        #
@@ -77,8 +80,8 @@ def create_app(test_config=None):
   # Endpoint /actors GET/POST/DELETE/UPDATE
   #============================================================#  
   @app.route('/actors', methods=['GET'])
-  @requires_auth('read:actors')
-  def get_actors(payload):
+  # @requires_auth('read:actors')
+  def get_actors():
     selection = Actor.query.all()
     paginated_actors = paginate_results(request, selection)
 
