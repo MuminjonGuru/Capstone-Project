@@ -10,12 +10,16 @@ from config import database_setup
 Database Model
 """
 
+user_name = database_setup["user_name"]
+password = database_setup["password"]
+port = ["port"]
+db_name = database_setup["database_name_production"]
 
 database_path = os.environ.get('DATABASE_URL',
-                               "postgres://{}:{}@{}/{}".format(database_setup["user_name"],
-                                                               database_setup["password"],
-                                                               database_setup["port"],
-                                                               database_setup["database_name_production"]))
+                               "postgres://{}:{}@{}/{}".format(user_name,
+                                                               password,
+                                                               port,
+                                                               db_name))
 
 db = SQLAlchemy()
 
