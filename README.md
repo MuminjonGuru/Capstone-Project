@@ -1,4 +1,7 @@
+
 # FSND: Capstone Project - Casting Agency
+
+This is the Casting Agency Final Project for my Udacity Full Stack Web Developer Nanodegree.
 
 ## Content
 
@@ -11,11 +14,12 @@
 
 This is the final project in this course and it includes many stuff I have learned throughout the course.
 
+0. Python 3
 1.  Database with  **postgres**  and  **sqlalchemy**  (`models.py`)
 2.  API  with  **Flask**  (`app.py`)
 3.  TDD  **Unittest**  (`test_app.py`)
 4.  Authorization &  Authentification **Auth0**  (`auth.py`)
-5.  Deployment on  `Heroku`
+5.  Deployment on  **`Heroku`**
 
 ## Project Setup
 
@@ -32,7 +36,7 @@ Once you have your virtual environment setup and running, install dependencies b
 
 Running the server
 
-From within the ./src directory first ensure you are working using your created virtual environment.
+From within the ./src directory first ensure you are working using your created virtual environment.
 
 Each time you open a new terminal session, run:
 
@@ -44,27 +48,43 @@ To run the server, execute:
 
 (`flask run --reload`)
 
-The --reload flag restarts the server when will happen a change on the source code.
+The --reload flag restarts the server when will happen a change on the source code.
 
 ## API Documentation
 
 In this part you can find all the necessary info about API.
 
-**GET** '/movies' - Retrieves all the movies in the database and represents them as JSON.
+> **GET** '/movies'
 
-**GET** '/actors' - Gets all the actors in the database and presents them as JSON.
+ - Retrieves all the movies in the database and represents them as JSON.
 
-**POST** '/movies/create' - Will produce a new movie in the database based on the JSON that is in the body of the request.
+> **GET** '/actors'
 
-**POST** '/actors/create'  - Create a new actor in the database based on the JSON.
+ - Gets all the actors in the database and presents them as JSON.
 
-**DELETE** '/movies/delete/int:movie_id' - Deletes the movie that compares to the Movie ID that is given into the URL.
+> **POST** '/movies/create'
 
-**DELETE** '/actors/delete/int:actor_id' - Deletes the actor that corresponds to the Actor ID that is passed into the URL.
+ - Will produce a new movie in the database based on the JSON that is in the body of the request.
 
-**UPDATE** '/actors/patch/int:actor_id' - Updates the actor that matches to the Actor ID that is given into the URL.
+> **POST** '/actors/create'
 
-**UPDATE** '/movies/patch/int:movie_id'  - Updates the movie that matches to the movie ID that is given into the URL.
+  - Create a new actor in the database based on the JSON.
+
+> **DELETE** '/movies/delete/int:movie_id'
+
+ - Deletes the movie that compares to the Movie ID that is given into the URL.
+
+> **DELETE** '/actors/delete/int:actor_id'
+
+ - Deletes the actor that corresponds to the Actor ID that is passed into the URL.
+
+> **UPDATE** '/actors/patch/int:actor_id'
+
+ - Updates the actor that matches to the Actor ID that is given into the URL.
+
+> **UPDATE** '/movies/patch/int:movie_id'
+
+  - Updates the movie that matches to the movie ID that is given into the URL.
 
 ## Roles
 
