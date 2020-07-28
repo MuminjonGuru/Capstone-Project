@@ -1,21 +1,26 @@
 import os
-from sqlalchemy import Column, Integer, String, Float, Date, create_engine 
+from sqlalchemy import Column, Integer, String, Float, Date, create_engine
 import json
 from flask_sqlalchemy import SQLAlchemy
 from config import database_setup
 # from datetime import Date
 
 
-#------------------------------------------------------------------#
-# Database Model 
-#------------------------------------------------------------------#
+"""
+Database Model
+"""
 
 
-database_path = os.environ.get('DATABASE_URL', "postgres://{}:{}@{}/{}".format(database_setup["user_name"], database_setup["password"], database_setup["port"], database_setup["database_name_production"]))
+database_path = os.environ.get('DATABASE_URL',
+                               "postgres://{}:{}@{}/{}".format(database_setup["user_name"],
+                                                               database_setup["password"],
+                                                               database_setup["port"],
+                                                               database_setup["database_name_production"]))
 
 db = SQLAlchemy()
 
-def setup_db(app, database_path = database_path):
+
+def setup_db(app, database_path=database_path):
     # connecting Flask Web App and SQLAlchemy
     app.config["SQLALCHEMY_DATABASE_URI"] = database_path
     app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
@@ -23,29 +28,31 @@ def setup_db(app, database_path = database_path):
     db.init_app(app)
     db.create_all()
 
+
 def db_drop_and_create_all():
     db.drop_all
     db.create_all
     db_init_records
 
+
 def db_init_records():
     # initialization of the Database Records
 
     new_actor = (Actor(
-        name = 'Muminjon',
-        gender = 'Male',
-        age = 19
-    ))    
+        name='Muminjon',
+        gender='Male',
+        age=19
+    ))
 
     new_movie = (Movie(
-        title = 'Six Pack Coder',
-        release_date = Date.today()
+        title='Six Pack Coder',
+        release_date=Date.today()
     ))
 
     new_performance = Performance.insert().values(
-        Movie_id = new_movie.id,
-        Actor_id = new_actor.id,
-        actor_fee = 1000.00
+        Movie_id=new_movie.id,
+        Actor_id=new_actor.id,
+        actor_fee=1000.00
     )
 
     new_actor.insert()
@@ -53,35 +60,42 @@ def db_init_records():
     db.session.execute(new_performance)
     db.session.commit()
 
-#------------------------------------------------------------------#
-# Relation/Association 
-#------------------------------------------------------------------#
 
-Performance = db.Table('Performance', db.Model.metadata,
-    db.Column('Movie_id', db.Integer, db.ForeignKey('movies.id')),
-    db.Column('Actor_id', db.Integer, db.ForeignKey('actors.id')),
-    db.Column('actor_fee', db.Float)
-)
+"""
+Relation/Association
+"""
+
+Performance = db.Table(
+    'Performance', db.Model.metadata, db.Column(
+        'Movie_id', db.Integer, db.ForeignKey('movies.id')), db.Column(
+            'Actor_id', db.Integer, db.ForeignKey('actors.id')), db.Column(
+                'actor_fee', db.Float))
 
 
-#------------------------------------------------------------------#
-# Movies Model
-#------------------------------------------------------------------#
+"""
+Movies Model
+"""
+
 
 class Movie(db.Model):
     __tablename__ = 'movies'
 
-    id = Column(Integer, primary_key = True)
+    id = Column(Integer, primary_key=True)
     title = Column(String)
     release_date = Column(Date)
-    actors = db.relationship('Actor', secondary = Performance, backref = db.backref('performances', lazy = 'joined'))
+    actors = db.relationship(
+        'Actor',
+        secondary=Performance,
+        backref=db.backref(
+            'performances',
+            lazy='joined'))
 
     def __init__(self, title, release_date):
         self.title = title
         self.release_date = release_date
 
     def insert(self):
-        db.session.add(self)        
+        db.session.add(self)
         db.session.commit()
 
     def update(self):
@@ -99,14 +113,15 @@ class Movie(db.Model):
         }
 
 
-#------------------------------------------------------------------#
-# Actors Model
-#------------------------------------------------------------------#
+"""
+Actors Model
+"""
+
 
 class Actor(db.Model):
     __tablename__ = 'actors'
 
-    id = Column(Integer, primary_key = True)
+    id = Column(Integer, primary_key=True)
     name = Column(String)
     gender = Column(String)
     age = Column(Integer)
@@ -127,7 +142,7 @@ class Actor(db.Model):
     def format(self):
         return {
             'id': self.id,
-            'name' : self.name,
+            'name': self.name,
             'gender': self.gender,
-            'age': self.age    
-        } 
+            'age': self.age
+        }
