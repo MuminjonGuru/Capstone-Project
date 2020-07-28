@@ -5,8 +5,8 @@ basedir = os.path.abspath(os.path.dirname(__file__))
 
 auth0_config = {
     "AUTH0_DOMAIN" : "dev-m-guru.auth0.com",
-    "ALGORITHMS" : ["RS256"],
-    "API_AUDIENCE" : "FSNDCapstone",
+    "ALGORITHMS" : "RS256",
+    "API_AUDIENCE" : "http://127.0.0.1:5000/",
     "AUTH0_CLIENT_ID": "0wMjUCi4MrsgFoEt1seV1XcTLHc8Yl6h",
     "AUTH0_CALLBACK_URL": "http://localhost:5000"
 }
