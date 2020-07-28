@@ -2,7 +2,7 @@ import os
 from flask import Flask, request, abort, jsonify
 from flask_cors import CORS
 from flask_sqlalchemy import SQLAlchemy
-from auth import AuthError, requires_auth
+from auth import AuthError, requires_auth, AUTH0_DOMAIN, API_AUDIENCE, AUTH0_CALLBACK_URL
 from config import pagination
 from models import db_drop_and_create_all, setup_db, Actor, Movie, Performance
 
@@ -47,12 +47,24 @@ def create_app(test_config=None):
     formatted_data = [object_name.format() for object_name in selection]
     return formatted_data[start:end]
 
+  @app.route("/auth")
+  def generate_auth_url():
+    url = f'https://{AUTH0_DOMAIN}/authorize' \
+        f'?audience={API_AUDIENCE}' \
+        f'&response_type=token&client_id=' \
+        f'{AUTH0_CLIENT_ID}&redirect_uri=' \
+        f'{AUTH0_CALLBACK_URL}'
+
+    return jsonify({
+        'url': url
+    })                
+
   #============================================================#
   #                       API Endpoints                        #
   #============================================================#    
 
   #============================================================#
-  #                       Sample/Test Enpoint                  #
+  #                     Sample/Test Enpoint                    #
   #============================================================# 
   @app.route('/', methods=['GET'])
   def welcome():
@@ -303,5 +315,5 @@ def create_app(test_config=None):
 APP = create_app()  
 
 if __name__ == '__main__':
-    port = int(os.environ.get("PORT", 5000))
-    APP.run(host='0.0.0.0', port=port, debug=True)
+    # port = int(os.environ.get("PORT", 5000))
+    APP.run(host='0.0.0.0', port=5000, debug=True)

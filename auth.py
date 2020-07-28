@@ -12,6 +12,7 @@ from urllib.request import urlopen
 AUTH0_DOMAIN = auth0_config['AUTH0_DOMAIN']
 ALGORITHMS   = auth0_config['ALGORITHMS']
 API_AUDIENCE = auth0_config['API_AUDIENCE']
+AUTH0_CALLBACK_URL = auth0_config['AUTH0_CALLBACK_URL']
 
 #============================================================#
 # AuthError

@@ -6,7 +6,9 @@ basedir = os.path.abspath(os.path.dirname(__file__))
 auth0_config = {
     "AUTH0_DOMAIN" : "dev-m-guru.auth0.com",
     "ALGORITHMS" : ["RS256"],
-    "API_AUDIENCE" : "FSNDCapstone"
+    "API_AUDIENCE" : "FSNDCapstone",
+    "AUTH0_CLIENT_ID": "0wMjUCi4MrsgFoEt1seV1XcTLHc8Yl6h",
+    "AUTH0_CALLBACK_URL": "http://0.0.0.0:5000"
 }
 
 pagination = {
