@@ -2,18 +2,20 @@ import os
 from flask import Flask, request, abort, jsonify
 from flask_cors import CORS
 from flask_sqlalchemy import SQLAlchemy
-from auth import AuthError, requires_auth, AUTH0_DOMAIN, API_AUDIENCE, AUTH0_CALLBACK_URL, AUTH0_CLIENT_ID
+from auth import AuthError, requires_auth, AUTH0_DOMAIN
+from auth import API_AUDIENCE, AUTH0_CALLBACK_URL, AUTH0_CLIENT_ID
 from config import pagination
 from models import db_drop_and_create_all, setup_db, Actor, Movie, Performance
 
 ROWS_PER_PAGE = pagination['example']
 
+
 def create_app(test_config=None):
-  '''create and configure the app'''
-  
   app = Flask(__name__)
   setup_db(app)
-  db_drop_and_create_all()  # Uncomment - if you want to start a new database on app refresh
+
+  # Uncomment - if you want to start a new database on app refresh
+  db_drop_and_create_all()  
 
   #============================================================#
   # API configuration
@@ -22,19 +24,19 @@ def create_app(test_config=None):
   CORS(app)
   @app.after_request
   def after_request(response):
-      response.headers.add('Access-Control-Allow-Headers', 'Content-Type,Authorization,true')
-      response.headers.add('Access-Control-Allow-Methods', 'GET,PATCH,POST,DELETE,OPTIONS')
-      return response
+    response.headers.add('Access-Control-Allow-Headers', 'Content-Type,Authorization,true')
+    response.headers.add('Access-Control-Allow-Methods', 'GET,PATCH,POST,DELETE,OPTIONS')
+    return response
 
   #============================================================#
   # Custom Functions
   #============================================================#
 
   def get_error_message(error, default_text):
-      try:
-          return error.description['message']
-      except:
-          return default_text
+    try:
+        return error.description['message']
+    except:
+        return default_text
           
 
   def paginate_results(request, selection):
@@ -71,10 +73,10 @@ def create_app(test_config=None):
   #============================================================# 
   @app.route('/', methods=['GET'])
   def welcome():
-      return jsonify({
-          'Welcome': 'Working!',
-          'LiveWebApp': 'https://XXXXXXX.herokuapp.com',
-      })  
+    return jsonify({
+        'Welcome': 'Working!',
+        'LiveWebApp': 'https://XXXXXXX.herokuapp.com',
+    })
 
   #============================================================#
   # Endpoint /actors GET/POST/DELETE/UPDATE
@@ -277,9 +279,8 @@ def create_app(test_config=None):
       'deleted': movie_id
     })    
 
-
   #============================================================#
-  # Error Handler Functions
+  #                    Error Handler Functions                 #
   #============================================================#
   @app.errorhandler(400)
   def bad_request(error):
