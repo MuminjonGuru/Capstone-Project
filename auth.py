@@ -5,28 +5,31 @@ from functools import wraps
 from config import auth0_config
 from urllib.request import urlopen
 
-#============================================================#
-# Auth0 Config
-#============================================================#
+"""
+Auth0 Config
+"""
 
 AUTH0_DOMAIN = auth0_config['AUTH0_DOMAIN']
-ALGORITHMS   = auth0_config['ALGORITHMS']
+ALGORITHMS = auth0_config['ALGORITHMS']
 API_AUDIENCE = auth0_config['API_AUDIENCE']
 AUTH0_CALLBACK_URL = auth0_config['AUTH0_CALLBACK_URL']
 AUTH0_CLIENT_ID = auth0_config['AUTH0_CLIENT_ID']
 
-#============================================================#
-# AuthError
-#============================================================#
+"""
+AuthError
+"""
+
 
 class AuthError(Exception):
     def __init__(self, error, status_code):
         self.error = error
         self.status_code = status_code
 
-#============================================================#
-# Auth Functions
-#============================================================#        
+
+"""
+Auth Functions
+"""
+
 
 def get_token_auth_header():
     if "Authorization" not in request.headers:
@@ -58,6 +61,7 @@ def get_token_auth_header():
 
     token = header_parts[1]
     return token
+
 
 def verify_decode_jwt(token):
     jsonurl = urlopen(f'https://{AUTH0_DOMAIN}/.well-known/jwks.json')
@@ -100,7 +104,7 @@ def verify_decode_jwt(token):
         except jwt.JWTClaimsError:
             raise AuthError({
                 'code': 'invalid_claims',
-                'description': 'Incorrect claims. Please, check the audience and issuer.'
+                'description': 'Incorrect claims. Check the audience & issuer'
             }, 401)
         except Exception:
             raise AuthError({
@@ -108,9 +112,9 @@ def verify_decode_jwt(token):
                 'description': 'Unable to parse authentication token.'
             }, 400)
     raise AuthError({
-                'code': 'invalid_header',
+        'code': 'invalid_header',
                 'description': 'Unable to find the appropriate key.'
-            }, 400)
+    }, 400)
 
 
 def check_permissions(permission, payload):
@@ -126,8 +130,8 @@ def check_permissions(permission, payload):
             'description': 'Permission not found.'
         }, 401)
 
-    return True            
-            
+    return True
+
 
 # decorater method
 def requires_auth(permission=''):
@@ -144,4 +148,4 @@ def requires_auth(permission=''):
             return f(payload, *args, **kwargs)
 
         return wrapper
-    return requires_auth_decorator          
+    return requires_auth_decorator
