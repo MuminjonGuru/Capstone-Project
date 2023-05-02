@@ -1,9 +1,9 @@
-﻿alembic==1.4.2
+alembic==1.4.2
 astroid==2.4.2
 click==7.1.2
 colorama==0.4.3
 ecdsa==0.15
-Flask==1.1.2
+Flask==2.2.5
 Flask-Cors==3.0.8
 Flask-JWT==0.3.2
 Flask-Migrate==2.5.3
